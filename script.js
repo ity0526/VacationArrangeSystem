@@ -44,7 +44,17 @@ function submitInfo() {
 
     fillArrival(vacationInfo);
   }
-  infoInput.value = "";                               //입력 후 inpute vlaue 초기화
+  infoInput.value = "";                            //입력 후 inpute vlaue 초기화
+
+	sortDate();
+}
+
+function sortDate() {
+	dateList.sort();
+	dateList.forEach(function(date) {
+		let ul = document.getElementById(date);
+		dateSet.append(ul);
+	})
 }
 
 function makeDate(date) {
@@ -81,6 +91,7 @@ function fillArrival(nameInfo) {
   const arrivalLi = ul.getElementsByClassName("arrival");
   arrivalLi[0].innerText += `${nameInfo.rankName} ${nameInfo.name}`;
 }
+
 infoForm.addEventListener("submit", submitInfo);
 
 //상병 인태영 (12.04~12.05)
