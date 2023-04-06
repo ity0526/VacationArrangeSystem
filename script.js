@@ -19,7 +19,7 @@ function submitInfo() {
 
   const vacationInfo = {                     //휴가 정보 객체
     rankName : soldier.split(" ")[0],
-    name : soldier.substr(3).split("(")[0],
+    name : soldier.split(" ")[1].split("(")[0],
     clearDeparture : departure.split(" ")[0],
     clearArrival : clearArrival,
     departureDay : departure.split(" ")[0].split(".")[1]
@@ -44,15 +44,15 @@ function submitInfo() {
 
     fillArrival(vacationInfo);
   }
-  infoInput.value = "";                            //입력 후 inpute vlaue 초기화
-
+  infoInput.value = "";                    //입력 후 input value 초기화
+	
 	sortDate();
 }
 
 function sortDate() {
 	dateList.sort();
 	dateList.forEach(function(date) {
-		let ul = document.getElementById(date);
+		let ul = document.getElementById(date); //왜 getElementById이고 querySelector는 안될까?
 		dateSet.append(ul);
 	})
 }
