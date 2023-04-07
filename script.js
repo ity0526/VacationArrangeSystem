@@ -80,18 +80,20 @@ function makeDate(date) {
 
 function fillDeparture(nameInfo) {
   const ul = document.getElementById(`${nameInfo.clearDeparture}`);
-  console.log(ul);
   const departureLi = ul.getElementsByClassName("departure");
-  console.dir(departureLi);
-  departureLi[0].innerText +=`${nameInfo.rankName} ${nameInfo.name}(~${nameInfo.clearArrival}),`;
+	const span = document.createElement("span");
+	span.setAttribute("id", `${nameInfo.name}${nameInfo.clearDeparture}`);
+  span.innerText =`${nameInfo.rankName} ${nameInfo.name}(~${nameInfo.clearArrival}),`;
+	departureLi[0].append(span);
 }
 
 function fillArrival(nameInfo) {
   const ul = document.getElementById(`${nameInfo.clearArrival}`);
   const arrivalLi = ul.getElementsByClassName("arrival");
-  arrivalLi[0].innerText += `${nameInfo.rankName} ${nameInfo.name}`;
+	const span = document.createElement("span");
+	span.setAttribute("id", `${nameInfo.name}`);
+	span.innerText = `${nameInfo.rankName} ${nameInfo.name}`;
+  arrivalLi[0].append(span);
 }
 
 infoForm.addEventListener("submit", submitInfo);
-
-//상병 인태영 (12.04~12.05)
