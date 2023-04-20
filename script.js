@@ -1,6 +1,10 @@
 const infoForm = document.querySelector("#info-form");
 const infoInput = document.querySelector("#info-input");
 const dateSet = document.querySelector("#datelist");
+const removeButton = document.querySelector("#remove-button");
+removeButton.addEventListener("click", onRemoveMode);
+const finishButton = document.querySelector("#finish");
+finishButton.addEventListener("click", offRemoveMode);
 const dateList = [];
 
 function submitInfo() {
@@ -76,24 +80,66 @@ function makeDate(date) {
   arrivalLi.setAttribute("class", "arrival");
   ul.appendChild(arrivalLi);
   arrivalLi.innerText = "복귀 :";
+	
+	const li = document.createElement("li");
+	const br = document.createElement("br");
+	ul.appendChild(li);
+	li.appendChild(br);
 }
 
 function fillDeparture(nameInfo) {
   const ul = document.getElementById(`${nameInfo.clearDeparture}`);
   const departureLi = ul.getElementsByClassName("departure");
 	const span = document.createElement("span");
-	span.setAttribute("id", `${nameInfo.name}${nameInfo.clearDeparture}`);
-  span.innerText =`${nameInfo.rankName} ${nameInfo.name}(~${nameInfo.clearArrival}),`;
-	departureLi[0].append(span);
+	span.setAttribute("class", `${nameInfo.name}`);
+  span.innerText =` ${nameInfo.rankName} ${nameInfo.name}(~${nameInfo.clearArrival}),`;
+	const button = document.createElement("button");
+	button.addEventListener("click", remove);
+	button.innerText = "❌";
+	button.className = "hidden";
+	
+	departureLi[0].appendChild(span);
+	span.appendChild(button);
 }
 
 function fillArrival(nameInfo) {
   const ul = document.getElementById(`${nameInfo.clearArrival}`);
   const arrivalLi = ul.getElementsByClassName("arrival");
 	const span = document.createElement("span");
-	span.setAttribute("id", `${nameInfo.name}`);
+	span.setAttribute("class", `${nameInfo.name}`);
 	span.innerText = `${nameInfo.rankName} ${nameInfo.name}`;
-  arrivalLi[0].append(span);
+  const button = document.createElement("button");
+	button.addEventListener("click", remove);
+	button.innerText = "❌";
+	button.className = "hidden";
+	
+	arrivalLi[0].appendChild(span);
+	span.appendChild(button);
+}
+
+function onRemoveMode() {
+	const removeButtons = dateSet.getElementsByTagName("button");
+	
+	for(let i=0; i<removeButtons.length; i++){
+		removeButtons[i].className = "";
+	}
+	removeButton.className = "hidden";
+	finishButton.className  = "";
+}
+
+function offRemoveMode() {
+	const removeButtons = dateSet.getElementsByTagName("button");
+	console.log(1);
+	for(let i=0; i<removeButtons.length; i++){
+		removeButtons[i].className = "hidden";
+	}
+	removeButton.className = "";
+	finishButton.className = "hidden";
+}
+
+function remove(event) {
+	const target = event.target.parentNode;
+	target.parentNode.removeChild(target);
 }
 
 infoForm.addEventListener("submit", submitInfo);
